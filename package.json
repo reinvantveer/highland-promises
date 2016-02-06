@@ -1,0 +1,15 @@
+{
+  "name": "promised-stream",
+  "version": "0.0.1",
+  "description": "Testing suite for promise resolving in streams",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register"
+  },
+  "author": "Rein van t Veer",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0"
+  }
+}
