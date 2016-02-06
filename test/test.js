@@ -38,7 +38,7 @@ describe('promise-stream', () => {
     });
   });
 
-  it('should receive a http 200 statuscode from three hosts', (done) => {
+  it('should receive a http 200 statuscode from three hosts using highland consume', (done) => {
     var statusCodes = [];
 
     H(hosts).consume((err, host, push, next) => {
@@ -55,6 +55,20 @@ describe('promise-stream', () => {
       }
     }).toArray((items) => {
       console.log(items);
+      expect(items).to.deep.equal([200, 200, 200]);
+      done();
+    });
+
+  });
+
+  it('should receive 200 status codes for the hosts array using highland sequence', (done) => {
+
+    H(hosts).map(host => {
+      return H(PS.ping(host));
+    }).sequence()
+    .toArray(result => {
+      console.log(result);
+      expect(result).to.deep.equal([200, 200, 200]);
       done();
     });
 
