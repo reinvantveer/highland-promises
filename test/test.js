@@ -74,4 +74,17 @@ describe('promise-stream', () => {
 
   });
 
+  it('should receive 200 status codes for the hosts array using highland parallel', (done) => {
+
+    H(hosts).map(host => {
+      return H(PS.ping(host));
+    }).parallel(10)
+    .toArray(result => {
+      console.log(result);
+      expect(result).to.deep.equal([200, 200, 200]);
+      done();
+    });
+
+  });
+
 });
